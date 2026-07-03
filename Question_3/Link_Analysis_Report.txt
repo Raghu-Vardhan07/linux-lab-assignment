@@ -1,1 +1,35 @@
+=== Link Analysis Report ===
 
+1. Inode Numbers
+original.txt: 45092
+hardlink.txt: 45092 (same as original)
+symlink.txt:  45094 (different — it's a separate file)
+
+2. Comparison Between Hard Link and Symbolic Link
+A hard link (hardlink.txt) shares the same inode (45092) as original.txt —
+it is literally another directory entry pointing to the same data on disk.
+A symbolic link (symlink.txt) has its own separate inode (45094) and is a
+small special file (size 12 bytes, just the string "original.txt") that
+stores a path to the target rather than the data itself.
+
+3. Effect of Deleting the Original File
+After running rm original.txt:
+- hardlink.txt still printed its content correctly, because the actual
+  data is only freed once its link count reaches zero. Its Links count
+  dropped from 2 to 1, confirming one of its two names was removed.
+- symlink.txt broke immediately with "No such file or directory", because
+  it only stored a reference to the filename original.txt, which no
+  longer exists.
+
+4. Metadata Collected (stat)
+original.txt: Inode 45092, Links: 2, Size: 22 bytes, regular file
+hardlink.txt: Inode 45092, Links: 2, Size: 22 bytes, regular file
+symlink.txt:  Inode 45094, Links: 1, Size: 12 bytes, symbolic link -> original.txt
+
+5. Conclusions
+Hard links and the original file are indistinguishable at the filesystem
+level, they share one inode, so data survives as long as at least one
+name/link remains. Symbolic links are independent files that merely point
+to a path, making them more flexible (can cross filesystems, can target
+directories) but fragile, since they break the moment their target is
+renamed or deleted.
