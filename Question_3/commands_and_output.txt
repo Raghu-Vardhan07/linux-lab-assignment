@@ -1,1 +1,47 @@
+$ echo "Original file content" > original.txt
+$ ls -li original.txt
+45092 -rw-r--r-- 1 yadav yadav 22 Jul  3 05:49 original.txt
 
+$ ln original.txt hardlink.txt
+$ ls -li original.txt hardlink.txt
+45092 -rw-r--r-- 2 yadav yadav 22 Jul  3 05:49 hardlink.txt
+45092 -rw-r--r-- 2 yadav yadav 22 Jul  3 05:49 original.txt
+
+$ ln -s original.txt symlink.txt
+$ ls -li original.txt symlink.txt
+45092 -rw-r--r-- 2 yadav yadav 22 Jul  3 05:49 original.txt
+45094 lrwxrwxrwx 1 yadav yadav 12 Jul  3 05:50 symlink.txt -> original.txt
+
+$ stat original.txt
+  File: original.txt
+  Size: 22        Blocks: 8          IO Block: 4096   regular file
+Device: 8,48       Inode: 45092      Links: 2
+Access: (0644/-rw-r--r--)  Uid: (1000/yadav)   Gid: (1000/yadav)
+
+$ stat hardlink.txt
+  File: hardlink.txt
+  Size: 22        Blocks: 8          IO Block: 4096   regular file
+Device: 8,48       Inode: 45092      Links: 2
+Access: (0644/-rw-r--r--)  Uid: (1000/yadav)   Gid: (1000/yadav)
+
+$ stat symlink.txt
+  File: 'symlink.txt' -> 'original.txt'
+  Size: 12        Blocks: 0          IO Block: 4096   symbolic link
+Device: 8,48       Inode: 45094      Links: 1
+Access: (0777/lrwxrwxrwx)  Uid: (1000/yadav)   Gid: (1000/yadav)
+
+$ cat original.txt
+Original file content
+$ cat hardlink.txt
+Original file content
+$ cat symlink.txt
+Original file content
+
+$ rm original.txt
+$ cat hardlink.txt
+Original file content
+$ cat symlink.txt
+cat: symlink.txt: No such file or directory
+$ ls -li hardlink.txt symlink.txt
+45092 -rw-r--r-- 1 yadav yadav 22 Jul  3 05:49 hardlink.txt
+45094 lrwxrwxrwx 1 yadav yadav 12 Jul  3 05:50 symlink.txt -> original.txt
