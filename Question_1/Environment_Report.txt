@@ -1,1 +1,26 @@
+=== Environment Verification Report ===
 
+1. Username and Groups
+Command: whoami, id
+Output confirms the logged-in user is "yadav" (UID 1000), belonging to groups including adm, cdrom, sudo, dip, plugdev, and users.
+Explanation: whoami prints the current username, while id shows the UID, GID, and all supplementary groups this account belongs to. Membership in "sudo" confirms this user has administrative privileges.
+
+2. Current Shell
+Command: echo $SHELL
+Output: /bin/bash
+Explanation: This confirms Bash is the default login shell configured for this account, which determines the command syntax and scripting behavior available.
+
+3. Current Working Directory
+Command: pwd
+Output: /home/yadav/linux-lab-assignment/Question_1
+Explanation: pwd confirms the exact filesystem location I'm working in, verifying I'm correctly inside the lab's Question_1 folder under my home directory.
+
+4. Files and Directories
+Command: ls -la
+Output: only "." and ".." entries present (empty new directory), total 8.
+Explanation: ls -la lists all files including hidden ones; since this folder was just created, only the current (.) and parent (..) directory references exist so far.
+
+5. Network Connectivity
+Command: ping -c 4 google.com
+Output: 4 packets transmitted, 4 received, 0% packet loss, round-trip time averaging ~32ms.
+Explanation: 0% packet loss confirms the machine has working internet/DNS connectivity, successfully resolving google.com and receiving replies from Google's servers.
