@@ -1,1 +1,41 @@
+=== Secure Project Workspace Report ===
 
+1. Directory Structure Created
+Command: mkdir -p project/docs project/data project/scripts; ls -R
+Output: project/ containing docs, data, and scripts subfolders (all empty).
+Explanation: Created a project directory with subfolders to logically
+separate documentation, data, and scripts, keeping the workspace organized
+by content type.
+
+2. File Permissions Before and After Modification
+Command: umask; touch project/confidential.txt; ls -l; chmod 640 project/confidential.txt; ls -l
+Output: Before: -rw-r--r-- (644). After chmod 640: -rw-r-----.
+Explanation: The umask value of 0022 is subtracted from the default 666 to
+give new files 644 (owner read/write, group and others read-only). Running
+chmod 640 tightened this further so the group can only read the file, and
+others have no access at all, protecting a sensitive/confidential file from
+unauthorized viewing.
+
+3. Ownership Details
+Command: stat project/confidential.txt; chown $(whoami):$(whoami) project/confidential.txt
+Output: Uid: (1000/yadav) Gid: (1000/yadav)
+Explanation: stat confirmed the file's owner and group are both "yadav"
+(UID/GID 1000). chown was used to explicitly (re)assign ownership, ensuring
+only the intended user and their group control this file.
+
+4. Umask Value Used
+Command: umask
+Output: 0022
+Explanation: A umask of 0022 is the standard default on Ubuntu; it removes
+write permission for group and others on new files, and write permission
+for others on new directories, providing secure defaults automatically.
+
+5. Explanation of How Permissions Protect Project Data
+Linux permissions (read/write/execute for owner/group/others) control who
+can view, modify, or execute files. By setting 640 on confidential.txt,
+only the owner (yadav) can edit it and only the group can view it —
+everyone else has zero access. This prevents accidental or malicious
+modification/leakage of sensitive project data. The umask ensures every
+newly created file automatically inherits a reasonably secure permission
+set (644) without needing manual chmod every time, reducing the risk of
+accidentally leaving new files world-writable.
