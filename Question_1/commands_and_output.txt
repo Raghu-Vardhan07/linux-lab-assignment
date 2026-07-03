@@ -1,1 +1,27 @@
+$ whoami
+yadav
 
+$ id
+uid=1000(yadav) gid=1000(yadav) groups=1000(yadav),4(adm),24(cdrom),27(sudo),30(dip),46(plugdev),100(users)
+
+$ echo $SHELL
+/bin/bash
+
+$ pwd
+/home/yadav/linux-lab-assignment/Question_1
+
+$ ls -la
+total 8
+drwxr-xr-x 2 yadav yadav 4096 Jul  3 04:35 .
+drwxr-xr-x 3 yadav yadav 4096 Jul  3 04:35 ..
+
+$ ping -c 4 google.com
+PING google.com (142.250.143.101) 56(84) bytes of data.
+64 bytes from pt-in-f101.1e100.net (142.250.143.101): icmp_seq=1 ttl=108 time=38.6 ms
+64 bytes from pt-in-f101.1e100.net (142.250.143.101): icmp_seq=2 ttl=108 time=22.4 ms
+64 bytes from pt-in-f101.1e100.net (142.250.143.101): icmp_seq=3 ttl=108 time=29.1 ms
+64 bytes from pt-in-f101.1e100.net (142.250.143.101): icmp_seq=4 ttl=108 time=38.9 ms
+
+--- google.com ping statistics ---
+4 packets transmitted, 4 received, 0% packet loss, time 3006ms
+rtt min/avg/max/mdev = 22.383/32.267/38.904/6.932 ms
