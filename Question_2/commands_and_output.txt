@@ -1,1 +1,37 @@
+=== Commands and Output — Question 2: Secure Project Workspace Setup ===
 
+$ mkdir -p project/docs project/data project/scripts
+$ ls -R project
+project:
+data  docs  scripts
+
+project/data:
+
+project/docs:
+
+project/scripts:
+
+
+$ umask
+0022
+
+$ touch project/confidential.txt
+$ ls -l project/confidential.txt
+-rw-r--r-- 1 yadav yadav 0 Jul  3 04:52 project/confidential.txt
+
+$ chmod 640 project/confidential.txt
+$ ls -l project/confidential.txt
+-rw-r----- 1 yadav yadav 0 Jul  3 05:10 project/confidential.txt
+
+$ stat project/confidential.txt
+  File: project/confidential.txt
+  Size: 0         Blocks: 0          IO Block: 4096   regular empty file
+Device: ...        Inode: ...        Links: 1
+Access: (0640/-rw-r-----)  Uid: ( 1000/yadav)   Gid: ( 1000/yadav)
+Access: 2026-07-03 05:10:00
+Modify: 2026-07-03 05:10:00
+Change: 2026-07-03 05:10:00
+
+$ chown yadav:yadav project/confidential.txt
+$ ls -l project/confidential.txt
+-rw-r----- 1 yadav yadav 0 Jul  3 05:10 project/confidential.txt
