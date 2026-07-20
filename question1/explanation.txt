@@ -1,0 +1,6 @@
+The script uses md5sum to hash each file's content, so duplicates are detected
+based on actual content rather than filenames. An associative array tracks
+which hash has already been seen; if a match is found the file is logged as
+a duplicate instead of copied. Only first-seen (unique) files are copied
+into unique_backup, and all command errors are redirected into errors.log
+using 2>> so they never mix with the report output.
